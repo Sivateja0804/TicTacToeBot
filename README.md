@@ -1,2 +1,2 @@
 # TicTacToeBot
-A generalized NxN Tic Tac Toe bot where you can play with grid 3*3-12*12
+A generalized NxN Tic Tac Toe bot where you can play with grid 3x3-12x12
