@@ -2,8 +2,8 @@
 A generalized NxN Tic Tac Toe bot where you can play with grid 3x3-12x12
 
 To do:
-Planning to deploy a Pretrained model
-Major steps in the project:
+Planning to deploy a Pretrained model \
+Major steps in the project: \
 1. Reducing time complexity using MinMax Algorithm:
     i)2^144- steps. (db)
     ii) db calls
