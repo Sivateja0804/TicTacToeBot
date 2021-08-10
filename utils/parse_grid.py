@@ -1,5 +1,9 @@
-def check_game_status(board=None):
-    score = calculate_reward(board)
+from utils.start_play import *
+from utils.constants import *
+
+
+def check_game_status(board=None, tic_tac_toe_len=None):
+    score = calculate_reward(board, tic_tac_toe_len)
     if score == 1000:
         print("You Lost. Better Luck next time")
         return "GAME LOST"
@@ -12,53 +16,56 @@ def check_game_status(board=None):
     return "CONTINUE"
 
 
-def calculate_reward(board):
-    row_score = check_row_score(board)
+def calculate_reward(board, tic_tac_toe_len):
+    row_score = check_row_score(board, x=tic_tac_toe_len)
     if row_score: return row_score
 
-    column_score = check_column_score(board)
+    column_score = check_column_score(board, x=tic_tac_toe_len)
     if column_score: return column_score
 
-    diagonal_score = check_diagonal_score(board)
+    diagonal_score = check_diagonal_score(board, x=tic_tac_toe_len)
     if diagonal_score: return diagonal_score
 
     return 0
 
 
-def check_row_score(board, x=None, opponent=None, player=None):
-    for i in range(len(board) - x + 1):
-        if board[i:i + x] == [player] * x:
-            return 1000
-        if board[i:i + x] == [opponent] * x:
-            return -1000
+def check_row_score(board, x=None):
+    n=len(board)
+    for row in board:
+        for i in range(n - x + 1):
+            if row[i:i + x] == [player] * x:
+                return 1000
+            if row[i:i + x] == [opponent] * x:
+                return -1000
     return None
 
 
-def check_column_score(board, x=None, player=None, opponent=None):
-    for i in range(len(board) - x + 1):
-        player_count = 0
-        opponent_count = 0
-        for j in range(x):
-            if board[i + j][i] == player:
-                player_count += 1
-            elif board[i + j][i] == opponent:
-                opponent_count += 1
-        if player_count == x:
-            return 1000
-        if opponent_count == x:
-            return -1000
+def check_column_score(board, x=None):
+    for col in range(len(board)):
+        for i in range(len(board) - x + 1):
+            player_count = 0
+            opponent_count = 0
+            for j in range(x):
+                if board[i + j][col] == player:
+                    player_count += 1
+                elif board[i + j][col] == opponent:
+                    opponent_count += 1
+            if player_count == x:
+                return 1000
+            if opponent_count == x:
+                return -1000
     return None
 
 
 # check all elements in the diagonal are equal if player won 10, lost -10
-def check_diagonal_score(board, x, player=None, opponent=None):
+def check_diagonal_score(board, x):
     for i in range(len(board) - x + 1):
         player_count = 0
         opponent_count = 0
         for j in range(x):
-            if board[i + x][i+x] == player:
+            if board[i + j][i + j] == player:
                 player_count += 1
-            elif board[i + x][i+x] == opponent:
+            elif board[i + j][i + j] == opponent:
                 opponent_count += 1
         if player_count == x:
             return 1000
@@ -68,9 +75,9 @@ def check_diagonal_score(board, x, player=None, opponent=None):
         player_count = 0
         opponent_count = 0
         for j in range(x):
-            if board[i + x][len(board)-(i + x)-1] == player:
+            if board[i + j][len(board) - (i + j) - 1] == player:
                 player_count += 1
-            elif board[i + x][len(board)-(i + x)-1] == opponent:
+            elif board[i + j][len(board) - (i + j) - 1] == opponent:
                 opponent_count += 1
         if player_count == x:
             return 1000

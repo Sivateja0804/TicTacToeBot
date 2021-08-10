@@ -1,0 +1,2 @@
+opponent = "X"
+player = "O"
