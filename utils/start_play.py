@@ -87,7 +87,9 @@ class game:
             time.sleep(1)
             if status == "CONTINUE":
                 print("Now its my turn")
+                startTime=time.time()
                 optimalMove = self.get_next_move(grid, tic_tac_toe_len)
                 grid[optimalMove[0]][optimalMove[1]] = player
+                print("time taken for the move "+str(int(time.time()-startTime)))
             else:
                 break
